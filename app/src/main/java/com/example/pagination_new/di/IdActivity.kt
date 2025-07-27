@@ -26,7 +26,7 @@ class IdActivity : AppCompatActivity() {
         binding = ActivityIdBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.titleText.text = "sdffsdf"
+      //  binding.titleText.text = "sdffsdf"
 
         binding.buttonBack.setOnClickListener { finish() }
 

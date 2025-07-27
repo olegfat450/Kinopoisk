@@ -4,6 +4,8 @@ import com.example.pagination_new.data.retrofit.Const.Companion.X_API_KEY
 import com.example.pagination_new.domain.classess.Film
 import com.example.pagination_new.domain.classess.Description
 import com.example.pagination_new.domain.classess.genre.Genre_list
+import com.example.pagination_new.domain.person.Docs
+import com.example.pagination_new.domain.person.Profession
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -64,7 +66,27 @@ suspend fun getFilmsWithPoster(
     suspend fun getFilmById(
         @Path("id") id: Int
     ): Response<Description>?
+
+    @GET("v1.4/person/search")
+    @Headers(X_API_KEY)
+    suspend fun getIdByName(
+        @Query("query") name: String,
+        @Query("page") page: Number = 1,
+        @Query("limit") limit: Number = 1
+
+    ): Docs
+
+    @GET("v1.4/movie")
+    @Headers(X_API_KEY)
+    suspend fun getFilmsByProfession(
+        @Query("page") page: Number,
+        @Query("limit") limit: Number,
+        @Query("persons.profession") profession: String,
+        @Query("persons.id") id: Int
+    ): Response<Film>
+
 }
+
 
 
 

@@ -8,6 +8,8 @@ import com.example.pagination_new.domain.classess.Doc
 import com.example.pagination_new.domain.Repository
 import com.example.pagination_new.domain.classess.Description
 import com.example.pagination_new.domain.classess.genre.Genre_list
+import com.example.pagination_new.domain.person.Docs
+import com.example.pagination_new.domain.person.Profession
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -41,6 +43,12 @@ class RepositoryImpl: Repository {
     override fun getFilmsByGenreWithPoster(genre: String): Flow<PagingData<Doc>> {
         return Pager(getFilmsByGenreWithPosterEvent(genre))
     }
+
+    override fun getFilmsByProfession(profession: String,id: Int): Flow<PagingData<Doc>> {
+        return Pager(getFilmsByProfessionEvent(profession,id))
+    }
+
+    override suspend fun getIdByName(name: String) = retrofit.getIdByName(name).docs.get(0).id
 
     override suspend fun getFilmById(id: Int): Response<Description>? {
         return retrofit.getFilmById(id)
