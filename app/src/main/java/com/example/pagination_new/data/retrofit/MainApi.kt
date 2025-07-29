@@ -5,7 +5,7 @@ import com.example.pagination_new.domain.classess.Film
 import com.example.pagination_new.domain.classess.Description
 import com.example.pagination_new.domain.classess.genre.Genre_list
 import com.example.pagination_new.domain.person.Docs
-import com.example.pagination_new.domain.person.Profession
+import com.example.pagination_new.domain.person.PersonItem
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -85,6 +85,11 @@ suspend fun getFilmsWithPoster(
         @Query("persons.id") id: Int
     ): Response<Film>
 
+    @GET("v1.4/person/{id}")
+    @Headers(X_API_KEY)
+    suspend fun getPeronById(
+        @Path("id") id: Int
+    ): Response<PersonItem>
 }
 
 

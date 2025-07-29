@@ -4,8 +4,7 @@ import androidx.paging.PagingData
 import com.example.pagination_new.domain.classess.Doc
 import com.example.pagination_new.domain.classess.Description
 import com.example.pagination_new.domain.classess.genre.Genre_list
-import com.example.pagination_new.domain.person.Docs
-import com.example.pagination_new.domain.person.Profession
+import com.example.pagination_new.domain.person.PersonItem
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -28,4 +27,6 @@ interface Repository {
 
    suspend fun getIdByName(name: String): Int
     suspend fun getFilmById(id: Int): Response<Description>?
+
+    suspend fun getActorById(id: Int): PersonItem?
 }

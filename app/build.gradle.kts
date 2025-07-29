@@ -62,4 +62,6 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("io.coil-kt:coil:2.6.0")
+    implementation("org.jsoup:jsoup:1.14.3")
+   // implementation("org.jetbrains.kotlinx:kotlinx-datatime:0.5.0")
 }

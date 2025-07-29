@@ -1,6 +1,8 @@
 package com.example.pagination_new.di
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
@@ -9,6 +11,7 @@ import com.example.pagination_new.databinding.ActivityIdBinding
 import com.example.pagination_new.di.adapter.PersonAdapter
 import com.example.pagination_new.domain.classess.Description
 import com.example.pagination_new.domain.classess.Person
+
 import com.example.pagination_new.domain.useCases.GetFilmByIdUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class IdActivity : AppCompatActivity() {
+class IdActivity : AppCompatActivity(),PersonAdapter.OnItemClick {
     private lateinit var binding: ActivityIdBinding
    @Inject lateinit var getFilmByIdUseCase: GetFilmByIdUseCase
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +31,8 @@ class IdActivity : AppCompatActivity() {
 
       //  binding.titleText.text = "sdffsdf"
 
-        binding.buttonBack.setOnClickListener { finish() }
+
+        binding.head.buttonBack.setOnClickListener { finish() }
 
         val id = intent.getIntExtra("id",0)
 
@@ -53,13 +57,14 @@ class IdActivity : AppCompatActivity() {
                 binding.personTv.layoutManager = LinearLayoutManager(this@IdActivity,LinearLayoutManager.HORIZONTAL,false)
 
             val adapter = PersonAdapter(list)
-
             binding.personTv.adapter = adapter
+
+           adapter.setOnItemClick(this@IdActivity)
 
             description.genres.forEach { binding.genresTv.append("  ${it.name}") }
 
         //  description.persons.forEach {  Log.d("Ml","${it.name}") }
-             titleText.text = if(description.name != null) description.name else description.alternativeName
+            head.titleText.text = if(description.name != null) description.name else description.alternativeName
 
             descriptionTv.text = description.description
 
@@ -76,5 +81,11 @@ class IdActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onItemClick(id: Int) {
+    val intent = Intent(this,PersonActivity::class.java)
+        intent.putExtra("id",id)
+        startActivity(intent)
     }
 }

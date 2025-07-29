@@ -1,7 +1,5 @@
 package com.example.pagination_new.di.adapter
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -13,10 +11,10 @@ import com.example.pagination_new.domain.classess.Doc
 import coil.load
 
 
-class PagingAdapter (val context: Context): PagingDataAdapter<Doc, PagingAdapter.MVH>(DIFF_CALLBACK) {
+class PagingAdapter (): PagingDataAdapter<Doc, PagingAdapter.MVH>(DIFF_CALLBACK) {
 
    private var onItemClick: OnItemClick? = null
-  interface OnItemClick { fun onItemClick(id: Int)}
+  interface OnItemClick { fun onItemClick(id: Int) }
 
     inner class MVH ( val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -77,6 +75,6 @@ class PagingAdapter (val context: Context): PagingDataAdapter<Doc, PagingAdapter
 
 
     }
-    fun setOnItemClick (onItemClick: OnItemClick) { this.onItemClick = onItemClick}
+    fun setOnItemClick (onItemClick: OnItemClick) { this.onItemClick = onItemClick }
 
 }

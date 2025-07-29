@@ -9,6 +9,10 @@ import com.example.pagination_new.databinding.PersonItemBinding
 import com.example.pagination_new.domain.classess.Person
 
 class PersonAdapter(private val list: List<Person>): RecyclerView.Adapter<PersonAdapter.RecVewHolder> () {
+
+    private var onItemClick: OnItemClick? = null
+   interface OnItemClick { fun onItemClick(id: Int)}
+
     inner class RecVewHolder( val binding: PersonItemBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecVewHolder {
@@ -27,10 +31,10 @@ class PersonAdapter(private val list: List<Person>): RecyclerView.Adapter<Person
 
             personImage.load(list[position].photo) {crossfade(true); error(R.drawable.no_image) }
             personName.text = if(list[position].name != null) list[position].name else list[position].enName
-            personProfessional.text = list[position].profession.dropLast(1)
+            personProfessional.text = list[position].profession.dropLast(1) }
 
-        }
+        holder.itemView.setOnClickListener { onItemClick?.onItemClick(list[position].id) }
 
   }
-
+    fun setOnItemClick (onItemClick: OnItemClick) { this.onItemClick = onItemClick }
 }

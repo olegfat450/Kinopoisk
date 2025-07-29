@@ -28,7 +28,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), PagingAdapter.OnItemClick {
 
-val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter(this) }
+val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
     private val vm: MainViewModel by viewModels()
     private var withPoster_flag = false
     private var genre = "Все жанры"
@@ -72,16 +72,17 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter(this) }
        } )
 
                binding.searchButton.setOnClickListener {
+                   Log.d("Ml","return")
+                    if(binding.searchText.text.isBlank() && search != "Поиск по названию фильма") {; return@setOnClickListener;  }
 
-                    if(binding.searchText.text.isBlank() && search != "Поиск по названию фильма") return@setOnClickListener
-
-                      if (binding.searchText.text.isBlank())  { vm.getAllFilms(); launchLifecycle()
+                        if (binding.searchText.text.isBlank())  { vm.getAllFilms(); launchLifecycle()
                           genre = "Все жанры"; return@setOnClickListener }
 
                          when(search) {
                              "Поиск по названию фильма" -> {
                                  binding.withPosterCheckBox.isEnabled = false
                                  vm.searchFilmsByTitle(binding.searchText.text.toString())
+                                 launchLifecycle()
                              }
 
 
@@ -138,6 +139,8 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter(this) }
             }
         }}}
     private fun getFilms() {
+
+        binding.withPosterCheckBox.isChecked = if (withPoster_flag) true else false
 
         when(genre) {
             "Все жанры" -> { if (withPoster_flag) { vm.getFilmsWithPoster()} else vm.getAllFilms()}

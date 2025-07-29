@@ -2,6 +2,7 @@ package com.example.pagination_new.domain.modules
 
 import android.content.Context
 import com.example.pagination_new.data.RepositoryImpl
+import com.example.pagination_new.domain.useCases.GetActorByIdUseCase
 import com.example.pagination_new.domain.useCases.GetAllFilmsUseCase
 import com.example.pagination_new.domain.useCases.GetFilmByIdUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreUseCase
@@ -53,6 +54,9 @@ class Module {
 
     @Provides
     fun provideGetFilmsByProfessional(repository: RepositoryImpl) = GetFilmsByProfessionalUseCase(repository)
+
+    @Provides
+    fun provideGetActorById(repository: RepositoryImpl) = GetActorByIdUseCase(repository)
 
 }
 

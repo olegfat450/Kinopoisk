@@ -8,8 +8,7 @@ import com.example.pagination_new.domain.classess.Doc
 import com.example.pagination_new.domain.Repository
 import com.example.pagination_new.domain.classess.Description
 import com.example.pagination_new.domain.classess.genre.Genre_list
-import com.example.pagination_new.domain.person.Docs
-import com.example.pagination_new.domain.person.Profession
+import com.example.pagination_new.domain.person.PersonItem
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -52,6 +51,10 @@ class RepositoryImpl: Repository {
 
     override suspend fun getFilmById(id: Int): Response<Description>? {
         return retrofit.getFilmById(id)
+    }
+
+    override suspend fun getActorById(id: Int): PersonItem? {
+       return retrofit.getPeronById(id).body()
     }
 
 
