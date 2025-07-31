@@ -1,4 +1,4 @@
-package com.example.pagination_new.domain.person
+package com.example.pagination_new.domain.classesss.person
 
 data class Docs(
     val docs: List<PersonItem>,

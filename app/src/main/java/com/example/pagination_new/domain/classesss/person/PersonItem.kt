@@ -1,4 +1,4 @@
-package com.example.pagination_new.domain.person
+package com.example.pagination_new.domain.classesss.person
 
 data class PersonItem(
     val age: Int?,
@@ -15,3 +15,4 @@ data class PersonItem(
     val sex: String,
     val facts: List<Facts>?
 )
+

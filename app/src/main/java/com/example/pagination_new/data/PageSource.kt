@@ -4,11 +4,9 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.pagination_new.data.retrofit.RetrofitInstance.retrofit
-import com.example.pagination_new.domain.PagerAdapterClass
-import com.example.pagination_new.domain.classess.Doc
-import com.example.pagination_new.domain.classess.Film
-import com.example.pagination_new.domain.person.Persons
-import retrofit2.Response
+import com.example.pagination_new.domain.classesss.PagerAdapterClass
+import com.example.pagination_new.domain.classesss.film.Doc
+import com.example.pagination_new.domain.classesss.person.Persons
 import kotlin.math.roundToInt
 
 
@@ -73,7 +71,7 @@ fun mapDocToPagerAdapterClass(doc: List<Doc>): List<PagerAdapterClass> {
     var list: List<PagerAdapterClass> = listOf()
 
 
-    doc.forEach { list += PagerAdapterClass(id = it.id, image = it.poster?.previewUrl,
+    doc.forEach { list += PagerAdapterClass(id = it.id, image = it.poster?.previewUrl ?: "",
         title = it.name?: it.alternativeName,
         text_1 = it.genres?.get(0)?.name?: "",
         text_2 = it.countries?.get(0)?.name?: "",
@@ -86,6 +84,6 @@ fun mapDocToPagerAdapterClass(doc: List<Doc>): List<PagerAdapterClass> {
 fun mapPersonsToPagerAdapterClass(persons: Persons): List<PagerAdapterClass>{
     var list: List<PagerAdapterClass> = listOf()
 
-   persons.docs.forEach { list += PagerAdapterClass(id = it.id, image = it.photo, title = it.name?: it.enName, text_1 = "ДР: ${it.birthday}", text_3 = "Возраст: ${it.age.toString()}") }
+   persons.docs.forEach { list += PagerAdapterClass(id = it.id, image = it.photo.toString(), title = if( (it.name == null) || it.name.isEmpty()) it.enName else it.name, age = it.age) }
     return list
 }

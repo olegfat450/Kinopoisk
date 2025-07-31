@@ -1,7 +1,5 @@
 package com.example.pagination_new.data
 
-import com.example.pagination_new.domain.person.Profession
-
 interface Event
 
 

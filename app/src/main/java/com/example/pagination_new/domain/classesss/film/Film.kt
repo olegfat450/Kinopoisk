@@ -1,6 +1,6 @@
-package com.example.pagination_new.domain.person
+package com.example.pagination_new.domain.classesss.film
 
-data class Persons(
+data class Film(
     val docs: List<Doc>,
     val limit: Int,
     val page: Int,

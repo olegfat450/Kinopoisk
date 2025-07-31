@@ -2,15 +2,14 @@ package com.example.pagination_new.di
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.pagination_new.R
 import com.example.pagination_new.databinding.ActivityIdBinding
 import com.example.pagination_new.di.adapter.PersonAdapter
-import com.example.pagination_new.domain.classess.Description
-import com.example.pagination_new.domain.classess.Person
+import com.example.pagination_new.domain.classesss.film.Description
+import com.example.pagination_new.domain.classesss.film.Person
 
 import com.example.pagination_new.domain.useCases.GetFilmByIdUseCase
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +51,7 @@ class IdActivity : AppCompatActivity(),PersonAdapter.OnItemClick {
                params.height = 0
                binding.personTv.layoutParams = params }
 
-            imageTv.load(description.poster?.url) { crossfade(true); error(R.drawable.no_image) }
+            imageTv.load(description.poster?.url) { error(R.drawable.no_image) }
 
                 binding.personTv.layoutManager = LinearLayoutManager(this@IdActivity,LinearLayoutManager.HORIZONTAL,false)
 

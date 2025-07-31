@@ -37,7 +37,6 @@
 
     <LinearLayout
         android:layout_marginStart="6dp"
-        android:layout_marginBottom="6dp"
         android:layout_marginTop="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,9 +59,15 @@
           />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/ageText"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_marginStart="12dp"
-
+        android:layout_marginTop="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

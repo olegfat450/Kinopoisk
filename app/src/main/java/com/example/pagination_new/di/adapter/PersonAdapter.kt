@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.pagination_new.R
 import com.example.pagination_new.databinding.PersonItemBinding
-import com.example.pagination_new.domain.classess.Person
+import com.example.pagination_new.domain.classesss.film.Person
 
 class PersonAdapter(private val list: List<Person>): RecyclerView.Adapter<PersonAdapter.RecVewHolder> () {
 
