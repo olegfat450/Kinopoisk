@@ -12,6 +12,7 @@ import com.example.pagination_new.domain.useCases.GetFilmsWithPoster
 import com.example.pagination_new.domain.useCases.GetGenresUseCase
 import com.example.pagination_new.domain.useCases.SearchByTitleUseCase
 import com.example.pagination_new.domain.useCases.GetIdByNameUseCse
+import com.example.pagination_new.domain.useCases.SearchPersonsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,6 +58,9 @@ class Module {
 
     @Provides
     fun provideGetActorById(repository: RepositoryImpl) = GetActorByIdUseCase(repository)
+
+    @Provides
+    fun searchPersons(repository: RepositoryImpl) = SearchPersonsUseCase(repository)
 
 }
 
