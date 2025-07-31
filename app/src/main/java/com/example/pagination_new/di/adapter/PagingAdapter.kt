@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pagination_new.R
 import com.example.pagination_new.databinding.ListItemBinding
 import coil.load
-import com.example.pagination_new.domain.classesss.PagerAdapterClass
+import com.example.pagination_new.domain.PagerAdapterClass
 
 
 class PagingAdapter (): PagingDataAdapter<PagerAdapterClass, PagingAdapter.MVH>(DIFF_CALLBACK) {
@@ -34,16 +34,13 @@ class PagingAdapter (): PagingDataAdapter<PagerAdapterClass, PagingAdapter.MVH>(
 
         val item = getItem(position)
         holder.binding.apply { title.text =item?.title
-                                ageText.textSize = 0f
+
 //                              if (item?.poster?.previewUrl != null)  {
 //                                  Log.d("Ml","picasso")
 //                                  Picasso.get().load(item.poster.previewUrl.toUri()).into(image)
 //                              } else {image.setImageResource(R.drawable.no_image) }
-                          var imageItem = ""
-                         if(item?.image?.length!! > 6) { imageItem = if(item.image.get(6) == '/') item.image else item.image.drop(6) }
 
-
-                        image.load(imageItem) {  error(R.drawable.no_image) }
+                        image.load(item?.image) { crossfade(true); error(R.drawable.no_image) }
 
                               //val genre_item = item?.genres?.getOrNull(0)?.name ?: "Пусто"
                               genre.text = item?.text_1?.substring(0,10.coerceAtMost(item.text_1.length))
@@ -51,8 +48,6 @@ class PagingAdapter (): PagingDataAdapter<PagerAdapterClass, PagingAdapter.MVH>(
                               country.text = country_item?.substring(0,10.coerceAtMost(country_item.length))
                               year.text = item?.text_3
                               rating.text = item?.text_4
-                   item?.age?.let { if( item.age != 0) { ageText.textSize = 16f; ageText.text = "Возраст: ${item.age}" } }
-
 
 
 //            Log.d("Ml","${item?.poster?.url} --  ${item?.poster?.previewUrl}")
@@ -75,7 +70,6 @@ class PagingAdapter (): PagingDataAdapter<PagerAdapterClass, PagingAdapter.MVH>(
         val layoutParams = itemView.layoutParams
         layoutParams.width = (parent.width/2.1).toInt()
         itemView.layoutParams = layoutParams
-
 
      return MVH(ListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 

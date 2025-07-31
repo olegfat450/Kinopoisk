@@ -4,11 +4,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.pagination_new.data.retrofit.RetrofitInstance.retrofit
-import com.example.pagination_new.domain.classesss.PagerAdapterClass
+import com.example.pagination_new.domain.PagerAdapterClass
 import com.example.pagination_new.domain.Repository
-import com.example.pagination_new.domain.classesss.film.Description
+import com.example.pagination_new.domain.classess.Description
+import com.example.pagination_new.domain.classess.Doc
 import com.example.pagination_new.domain.classess.genre.Genre_list
-import com.example.pagination_new.domain.classesss.person.PersonItem
+import com.example.pagination_new.domain.person.PersonItem
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -21,7 +22,7 @@ class RepositoryImpl: Repository {
     override fun getAllFilms(): Flow<PagingData<PagerAdapterClass>> = Pager(getAllFilmsEvent())
 
 
-    override fun searchFilmsByTitle(title: String): Flow<PagingData<PagerAdapterClass>> {
+    override fun searchByTitle(title: String): Flow<PagingData<PagerAdapterClass>> {
         return Pager(getFilmByTitleEvent(title))
 
     }
@@ -42,11 +43,11 @@ class RepositoryImpl: Repository {
         return Pager(getFilmsByGenreWithPosterEvent(genre))
     }
 
-//    override fun getFilmsByProfession(profession: String,id: Int): Flow<PagingData<PagerAdapterClass>> {
-//        return Pager(getFilmsByProfessionEvent(profession,id))
-//    }
+    override fun getFilmsByProfession(profession: String,id: Int): Flow<PagingData<PagerAdapterClass>> {
+        return Pager(getFilmsByProfessionEvent(profession,id))
+    }
 
-//    override suspend fun getIdByName(name: String) = retrofit.getIdByName(name).docs.get(0).id
+    override suspend fun getIdByName(name: String) = retrofit.getIdByName(name).docs.get(0).id
 
     override suspend fun getFilmById(id: Int): Response<Description>? {
         return retrofit.getFilmById(id)
