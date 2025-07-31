@@ -7,11 +7,11 @@ import com.example.pagination_new.domain.useCases.GetAllFilmsUseCase
 import com.example.pagination_new.domain.useCases.GetFilmByIdUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreWithPosterUseCase
-import com.example.pagination_new.domain.useCases.GetFilmsByProfessionalUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsWithPoster
 import com.example.pagination_new.domain.useCases.GetGenresUseCase
 import com.example.pagination_new.domain.useCases.SearchByTitleUseCase
-import com.example.pagination_new.domain.useCases.GetIdByNameUseCse
+//import com.example.pagination_new.domain.useCases.GetIdByNameUseCse
+import com.example.pagination_new.domain.useCases.SearchPersonsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,14 +49,17 @@ class Module {
     @Provides
     fun provideGetFilmById(repository: RepositoryImpl) = GetFilmByIdUseCase(repository)
 
-    @Provides
-    fun provideGetIdByName(repository: RepositoryImpl) = GetIdByNameUseCse(repository)
+//    @Provides
+//    fun provideGetIdByName(repository: RepositoryImpl) = GetIdByNameUseCse(repository)
 
-    @Provides
-    fun provideGetFilmsByProfessional(repository: RepositoryImpl) = GetFilmsByProfessionalUseCase(repository)
+//    @Provides
+//    fun provideGetFilmsByProfessional(repository: RepositoryImpl) = GetFilmsByProfessionalUseCase(repository)
 
     @Provides
     fun provideGetActorById(repository: RepositoryImpl) = GetActorByIdUseCase(repository)
+
+    @Provides
+    fun searchPersons(repository: RepositoryImpl) = SearchPersonsUseCase(repository)
 
 }
 

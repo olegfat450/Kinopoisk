@@ -17,7 +17,7 @@ import com.example.pagination_new.databinding.ActivityMainBinding
 import com.example.pagination_new.di.adapter.PagingAdapter
 import com.example.pagination_new.domain.classess.genre.Genre_list
 import com.example.pagination_new.domain.useCases.GetGenresUseCase
-import com.example.pagination_new.domain.useCases.GetIdByNameUseCse
+//import com.example.pagination_new.domain.useCases.GetIdByNameUseCse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CoroutineScope
@@ -32,11 +32,11 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
     private val vm: MainViewModel by viewModels()
     private var withPoster_flag = false
     private var genre = "Все жанры"
-    private var search = "Поиск по названию фильма"
+    private var search = "Поиск фильмов"
     private lateinit var  binding: ActivityMainBinding
     var genre_list: List<Genre_list> = listOf()
    @Inject lateinit var  getGenresUseCase: GetGenresUseCase
-   @Inject lateinit var getIdByName: GetIdByNameUseCse
+//   @Inject lateinit var getIdByName: GetIdByNameUseCse
    // val l = lifecycleScope
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-       binding.searchText.hint = "Поиск по названию фильма"
+       binding.searchText.hint = search
         adapter.addLoadStateListener {
             binding.progressUp.visibility =  if( it.prepend is LoadState.Loading || adapter.itemCount == 0 ) View.VISIBLE else View.GONE
             binding.progressDown.visibility = if( it.append is LoadState.Loading) View.VISIBLE else View.GONE
@@ -64,7 +64,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-               if ((binding.searchText.text.isBlank()) && (search == "Поиск по названию фильма"))
+               if ((binding.searchText.text.isBlank()) && (search == "Поиск фильмов"))
               { binding.searchText.hint = search; binding.withPosterCheckBox.isEnabled = true; } else { binding.withPosterCheckBox.isEnabled = false }
            }
 
@@ -72,37 +72,28 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
        } )
 
                binding.searchButton.setOnClickListener {
-                   Log.d("Ml","return")
-                    if(binding.searchText.text.isBlank() && search != "Поиск по названию фильма") {; return@setOnClickListener;  }
 
-                        if (binding.searchText.text.isBlank())  { vm.getAllFilms(); launchLifecycle()
-                          genre = "Все жанры"; return@setOnClickListener }
+                  //  if(binding.searchText.text.isBlank() && search != "Поиск фильмов") { return@setOnClickListener;  }
+
+//                        if (binding.searchText.text.isBlank())  { vm.getAllFilms(); launchLifecycle()
+//                          genre = "Все жанры"; return@setOnClickListener }
 
                          when(search) {
-                             "Поиск по названию фильма" -> {
+                             "Поиск фильмов" -> {
                                  binding.withPosterCheckBox.isEnabled = false
                                  vm.searchFilmsByTitle(binding.searchText.text.toString())
                                  launchLifecycle()
                              }
 
 
-                             "Поиск по актерам" -> { getFilmsByProfession("актеры")
-//                                 binding.withPosterCheckBox.isEnabled = false
-//                                 CoroutineScope(Dispatchers.IO).launch {
-//                                     val id =
-//                                         getIdByName.execute(binding.searchText.text.toString())
-//                                     vm.getFilmsByProfession("актеры", id); launchLifecycle() }
+                             "Поиск актеров" -> {
+                                 vm.searchPersons(binding.searchText.text.toString())
+                                 launchLifecycle()
+
                              }
 
-                                 "Поиск по режиссерам" -> { getFilmsByProfession("режиссеры")
-//                                     binding.withPosterCheckBox.isEnabled = false;
-//                                     CoroutineScope(Dispatchers.IO).launch {
-//                                     val id =
-//                                         getIdByName.execute(binding.searchText.text.toString())
-//
-//                                    vm.getFilmsByProfession("режиссеры",id); launchLifecycle()}
 
-                           }}
+                         }
 
                }
 
@@ -118,14 +109,14 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
     }
 
-    private fun getFilmsByProfession(profession: String) {
-        binding.withPosterCheckBox.isEnabled = false
-        CoroutineScope(Dispatchers.IO).launch {
-            val id =
-                getIdByName.execute(binding.searchText.text.toString())
-            vm.getFilmsByProfession(profession = profession, id); launchLifecycle() }
-
-    }
+//    private fun getFilmsByProfession(profession: String) {
+//        binding.withPosterCheckBox.isEnabled = false
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val id =
+//                getIdByName.execute(binding.searchText.text.toString())
+//            vm.getFilmsByProfession(profession = profession, id); launchLifecycle() }
+//
+//    }
 
 
     fun getGenres() {
@@ -160,14 +151,13 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
     }
     private fun showSearchMenu(view: View) {
          val menu = PopupMenu(this,view)
-          menu.menu.add("Поиск по названию фильма")
-          menu.menu.add("Поиск по актерам")
-          menu.menu.add("Поиск по режиссерам")
+        menu.menu.add("Поиск фильмов")
+        menu.menu.add("Поиск актеров")
            menu.show()
             menu.setOnMenuItemClickListener {
 
                 search = it.title.toString(); binding.searchText.hint = search;
-                if (search == "Поиск по актерам") binding.withPosterCheckBox.isEnabled = false else binding.withPosterCheckBox.isEnabled = true
+                if (search == "Поиск актеров") binding.withPosterCheckBox.isEnabled = false else binding.withPosterCheckBox.isEnabled = true
                 true }
 
     }
@@ -185,8 +175,16 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
             true } }
 
     override fun onItemClick(id: Int) {
-        val intent = Intent(this,IdActivity::class.java)
-        intent.putExtra("id",id)
+
+        var intent: Intent? = null
+
+        when(search) {
+            "Поиск фильмов" -> {  intent = Intent(this,IdActivity::class.java) }
+            "Поиск актеров" -> { intent = Intent(this,PersonActivity::class.java)}
+        }
+
+
+        intent?.putExtra("id",id)
         startActivity(intent)
     }
 

@@ -1,4 +1,4 @@
-package com.example.pagination_new.domain.classess
+package com.example.pagination_new.domain.classesss.film
 
 data class Film(
     val docs: List<Doc>,

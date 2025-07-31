@@ -3,13 +3,12 @@ package com.example.pagination_new.di
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.example.pagination_new.R
 import com.example.pagination_new.databinding.ActivityPersonBinding
-import com.example.pagination_new.domain.person.PersonItem
+import com.example.pagination_new.domain.classesss.person.PersonItem
 import com.example.pagination_new.domain.useCases.GetActorByIdUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

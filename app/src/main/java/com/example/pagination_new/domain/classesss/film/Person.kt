@@ -1,4 +1,4 @@
-package com.example.pagination_new.domain.classess
+package com.example.pagination_new.domain.classesss.film
 
 data class Person(
     val description: String,

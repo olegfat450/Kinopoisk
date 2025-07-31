@@ -1,11 +1,12 @@
 package com.example.pagination_new.data.retrofit
 
 import com.example.pagination_new.data.retrofit.Const.Companion.X_API_KEY
-import com.example.pagination_new.domain.classess.Film
-import com.example.pagination_new.domain.classess.Description
+import com.example.pagination_new.domain.classesss.film.Film
+import com.example.pagination_new.domain.classesss.film.Description
 import com.example.pagination_new.domain.classess.genre.Genre_list
-import com.example.pagination_new.domain.person.Docs
-import com.example.pagination_new.domain.person.PersonItem
+import com.example.pagination_new.domain.classesss.person.Docs
+import com.example.pagination_new.domain.classesss.person.PersonItem
+import com.example.pagination_new.domain.classesss.person.Persons
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -90,6 +91,14 @@ suspend fun getFilmsWithPoster(
     suspend fun getPeronById(
         @Path("id") id: Int
     ): Response<PersonItem>
+
+    @GET("v1.4/person/search")
+    @Headers(X_API_KEY)
+    suspend fun searchPersons(
+        @Query("query") name: String,
+        @Query("page") page: Number,
+        @Query("limit") limit: Number
+    ): Response<Persons>
 }
 
 
