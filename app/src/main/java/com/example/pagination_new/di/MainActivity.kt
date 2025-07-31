@@ -86,7 +86,10 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
                              }
 
 
-                             "Поиск по актерам" -> { getFilmsByProfession("актеры")
+                             "Поиск по актерам" -> {
+                                 vm.searchPersons(binding.searchText.text.toString())
+                                 launchLifecycle()
+                                 //getFilmsByProfession("актеры")
 //                                 binding.withPosterCheckBox.isEnabled = false
 //                                 CoroutineScope(Dispatchers.IO).launch {
 //                                     val id =
@@ -185,8 +188,16 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
             true } }
 
     override fun onItemClick(id: Int) {
-        val intent = Intent(this,IdActivity::class.java)
-        intent.putExtra("id",id)
+
+        var intent: Intent? = null
+
+        when(search) {
+            "Поиск по названию фильма" -> {  intent = Intent(this,IdActivity::class.java) }
+            "Поиск по актерам" -> { intent = Intent(this,PersonActivity::class.java)}
+        }
+
+
+        intent?.putExtra("id",id)
         startActivity(intent)
     }
 

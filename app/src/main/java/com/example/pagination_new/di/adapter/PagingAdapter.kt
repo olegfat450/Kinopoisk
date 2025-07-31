@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pagination_new.R
 import com.example.pagination_new.databinding.ListItemBinding
-import com.example.pagination_new.domain.classess.Doc
 import coil.load
+import com.example.pagination_new.domain.PagerAdapterClass
 
 
-class PagingAdapter (): PagingDataAdapter<Doc, PagingAdapter.MVH>(DIFF_CALLBACK) {
+class PagingAdapter (): PagingDataAdapter<PagerAdapterClass, PagingAdapter.MVH>(DIFF_CALLBACK) {
 
    private var onItemClick: OnItemClick? = null
   interface OnItemClick { fun onItemClick(id: Int) }
@@ -19,12 +19,12 @@ class PagingAdapter (): PagingDataAdapter<Doc, PagingAdapter.MVH>(DIFF_CALLBACK)
     inner class MVH ( val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root)
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Doc>() {
-            override fun areItemsTheSame(oldItem: Doc, newItem: Doc): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PagerAdapterClass>() {
+            override fun areItemsTheSame(oldItem: PagerAdapterClass, newItem: PagerAdapterClass): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: Doc, newItem: Doc): Boolean {
+            override fun areContentsTheSame(oldItem: PagerAdapterClass, newItem: PagerAdapterClass): Boolean {
                return oldItem == newItem }
         } }
 
@@ -33,21 +33,21 @@ class PagingAdapter (): PagingDataAdapter<Doc, PagingAdapter.MVH>(DIFF_CALLBACK)
 
 
         val item = getItem(position)
-        holder.binding.apply { title.text = if ( item?.name != null) item.name.toString() else item?.alternativeName.toString()
+        holder.binding.apply { title.text =item?.title
 
 //                              if (item?.poster?.previewUrl != null)  {
 //                                  Log.d("Ml","picasso")
 //                                  Picasso.get().load(item.poster.previewUrl.toUri()).into(image)
 //                              } else {image.setImageResource(R.drawable.no_image) }
 
-                        image.load(item?.poster?.url) { crossfade(true); error(R.drawable.no_image) }
+                        image.load(item?.image) { crossfade(true); error(R.drawable.no_image) }
 
-                              val genre_item= item?.genres?.getOrNull(0)?.name ?: "Пусто"
-                              genre.text = genre_item?.substring(0,10.coerceAtMost(genre_item.length))
-                              val country_item = item?.countries?.getOrNull(0)?.name ?: "пусто"
-                              country.text = country_item.substring(0,10.coerceAtMost(country_item.length))
-                              year.text = "Год: ${item?.year}"
-                              rating.text = "Imdb: ${item?.rating?.imdb}"
+                              //val genre_item = item?.genres?.getOrNull(0)?.name ?: "Пусто"
+                              genre.text = item?.text_1?.substring(0,10.coerceAtMost(item.text_1.length))
+                              val country_item = item?.text_2
+                              country.text = country_item?.substring(0,10.coerceAtMost(country_item.length))
+                              year.text = item?.text_3
+                              rating.text = item?.text_4
 
 
 //            Log.d("Ml","${item?.poster?.url} --  ${item?.poster?.previewUrl}")

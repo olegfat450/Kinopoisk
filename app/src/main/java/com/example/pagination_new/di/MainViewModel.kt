@@ -4,16 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.pagination_new.domain.classess.Doc
-import com.example.pagination_new.domain.person.Profession
+import com.example.pagination_new.domain.PagerAdapterClass
 import com.example.pagination_new.domain.useCases.GetAllFilmsUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreWithPosterUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByProfessionalUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsWithPoster
-import com.example.pagination_new.domain.useCases.GetIdByNameUseCse
 
 import com.example.pagination_new.domain.useCases.SearchByTitleUseCase
+import com.example.pagination_new.domain.useCases.SearchPersonsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -27,11 +26,12 @@ class MainViewModel @Inject constructor(
                                    private val getFilmsWithPoster: GetFilmsWithPoster,
                                    private val getFilmsByGenre: GetFilmsByGenreUseCase,
                                    private val getFilmsByGenreWithPoster: GetFilmsByGenreWithPosterUseCase,
-                                    private val getFilmsByProfession: GetFilmsByProfessionalUseCase
+                                    private val getFilmsByProfession: GetFilmsByProfessionalUseCase,
+                                      private val searchPersonsUseCase: SearchPersonsUseCase
 
                                ): ViewModel() {
 
-   var data: Flow<PagingData<Doc>> = flowOf()
+   var data: Flow<PagingData<PagerAdapterClass>> = flowOf()
 
 
 
@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(
     fun getFilmsByGenre(genre: String) {data = getFilmsByGenre.execute(genre).cachedIn(viewModelScope)}
     fun getFilmsByGenreWithPoster(genre: String) {data = getFilmsByGenreWithPoster.execute(genre).cachedIn(viewModelScope)}
     fun getFilmsByProfession(profession: String,id: Int) { data = getFilmsByProfession.execute(profession,id).cachedIn(viewModelScope)}
-
+    fun searchPersons(name: String) { data = searchPersonsUseCase.execute(name)}
 
 
 }

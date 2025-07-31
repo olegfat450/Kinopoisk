@@ -4,9 +4,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.pagination_new.data.retrofit.RetrofitInstance.retrofit
-import com.example.pagination_new.domain.classess.Doc
+import com.example.pagination_new.domain.PagerAdapterClass
 import com.example.pagination_new.domain.Repository
 import com.example.pagination_new.domain.classess.Description
+import com.example.pagination_new.domain.classess.Doc
 import com.example.pagination_new.domain.classess.genre.Genre_list
 import com.example.pagination_new.domain.person.PersonItem
 import kotlinx.coroutines.flow.Flow
@@ -18,16 +19,15 @@ class RepositoryImpl: Repository {
     val initialSize = 30
     val maxSize = 30
 
-    override fun getAllFilms(): Flow<PagingData<Doc>> {
-        return Pager(getAllFilmsEvent())
-    }
+    override fun getAllFilms(): Flow<PagingData<PagerAdapterClass>> = Pager(getAllFilmsEvent())
 
-    override fun searchByTitle(title: String): Flow<PagingData<Doc>> {
+
+    override fun searchByTitle(title: String): Flow<PagingData<PagerAdapterClass>> {
         return Pager(getFilmByTitleEvent(title))
 
     }
 
-    override fun getFilmsWithPoster(): Flow<PagingData<Doc>> {
+    override fun getFilmsWithPoster(): Flow<PagingData<PagerAdapterClass>> {
         return Pager(getFilmsWithPosterEvent())
 
     }
@@ -35,15 +35,15 @@ class RepositoryImpl: Repository {
         return retrofit.getGenres()
     }
 
-    override fun getFilmsByGenre(genre: String): Flow<PagingData<Doc>> {
+    override fun getFilmsByGenre(genre: String): Flow<PagingData<PagerAdapterClass>> {
        return Pager(getFilmsByGenreEvent(genre))
     }
 
-    override fun getFilmsByGenreWithPoster(genre: String): Flow<PagingData<Doc>> {
+    override fun getFilmsByGenreWithPoster(genre: String): Flow<PagingData<PagerAdapterClass>> {
         return Pager(getFilmsByGenreWithPosterEvent(genre))
     }
 
-    override fun getFilmsByProfession(profession: String,id: Int): Flow<PagingData<Doc>> {
+    override fun getFilmsByProfession(profession: String,id: Int): Flow<PagingData<PagerAdapterClass>> {
         return Pager(getFilmsByProfessionEvent(profession,id))
     }
 
@@ -57,6 +57,10 @@ class RepositoryImpl: Repository {
        return retrofit.getPeronById(id).body()
     }
 
+    override fun searchPersons(name: String): Flow<PagingData<PagerAdapterClass>> {
+        return Pager(searchPersonsEvent(name))
+    }
+
 
     fun Pager(event: Event) = Pager(
         PagingConfig(
@@ -65,6 +69,8 @@ class RepositoryImpl: Repository {
             maxSize = maxSize
         )
     ) { PageSource(event) }.flow
+
+
 
 
 
