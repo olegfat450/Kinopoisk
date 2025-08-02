@@ -13,6 +13,7 @@ data class PersonItem(
     val photo: String?,
     val profession: List<Profession>,
     val sex: String,
-    val facts: List<Facts>?
+    val facts: List<Facts>?,
+    val movies: List<Movies>
 )
-
+data class Movies(val id: Int,val name: String?,val alternativeName: String?)

@@ -14,6 +14,7 @@
     </include>
 
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -78,6 +79,53 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
      />
+
+    <LinearLayout
+        android:id="@+id/filmography"
+        android:layout_margin="8dp"
+        android:background="@color/blue"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/white"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="Фильмография">
+        </TextView>
+
+        <ImageView
+            android:id="@+id/filmographyImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/down"
+            >
+
+        </ImageView>
+
+    </LinearLayout>
+
+
+      <ListView
+          android:id="@+id/FilmsTv"
+          tools:listitem="@layout/film_item"
+          android:layout_weight="0"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:nestedScrollingEnabled="false">
+
+      </ListView>
+
+
+
+
+
 
       <TextView
           android:id="@+id/factsTv"

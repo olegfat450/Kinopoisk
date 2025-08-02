@@ -73,6 +73,8 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
                binding.searchButton.setOnClickListener {
 
+                   if(binding.searchText.text.isBlank()) { search = "Поиск фильмов"; binding.searchText.hint = search; getFilms(); launchLifecycle(); return@setOnClickListener }
+
                   //  if(binding.searchText.text.isBlank() && search != "Поиск фильмов") { return@setOnClickListener;  }
 
 //                        if (binding.searchText.text.isBlank())  { vm.getAllFilms(); launchLifecycle()
