@@ -11,7 +11,7 @@ import com.example.pagination_new.domain.classesss.film.Person
 class PersonAdapter(private val list: List<Person>): RecyclerView.Adapter<PersonAdapter.RecVewHolder> () {
 
     private var onItemClick: OnItemClick? = null
-   interface OnItemClick { fun onItemClick(id: Int)}
+   interface OnItemClick { fun onItemClick(id: Int) }
 
     inner class RecVewHolder( val binding: PersonItemBinding): RecyclerView.ViewHolder(binding.root)
 

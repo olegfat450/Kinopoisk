@@ -1,6 +1,7 @@
 package com.example.pagination_new.domain
 
 import androidx.paging.PagingData
+import com.example.pagination_new.databinding.ActivityMainBinding
 import com.example.pagination_new.domain.classesss.film.Description
 import com.example.pagination_new.domain.classess.genre.Genre_list
 import com.example.pagination_new.domain.classesss.PagerAdapterClass
@@ -31,4 +32,6 @@ interface Repository {
     suspend fun getActorById(id: Int): PersonItem?
 
     fun searchPersons(name: String): Flow<PagingData<PagerAdapterClass>>
+
+
 }

@@ -19,7 +19,7 @@
             android:name=".di.PersonActivity"
             android:exported="false" />
         <activity
-            android:name=".di.IdActivity"
+            android:name=".di.FilmActivity"
             android:exported="false" />
         <activity
             android:name=".di.MainActivity"

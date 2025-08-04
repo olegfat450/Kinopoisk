@@ -10,9 +10,10 @@ import android.widget.TextView
 import com.example.pagination_new.R
 
 class FilmAdapter(val context: Context, val list: List<Pair<Int,String?>>): BaseAdapter() {
-    override fun getCount() = list.size
+    override fun getCount(): Int = list.size?: 0
 
-    override fun getItem(position: Int) = list[position]
+
+    override fun getItem(position: Int) = list.get(position)
 
     override fun getItemId(position: Int) = position.toLong()
 
@@ -24,7 +25,7 @@ class FilmAdapter(val context: Context, val list: List<Pair<Int,String?>>): Base
 
 
 
-        viewHolder.text.text = "${list[position].second}"
+        viewHolder.text.text = "${list.get(position).second}"
 
       //  view.measure(View.MeasureSpec.UNSPECIFIED,View.MeasureSpec.UNSPECIFIED)
       //  Log.d("Ml","${view.measuredHeight}")
