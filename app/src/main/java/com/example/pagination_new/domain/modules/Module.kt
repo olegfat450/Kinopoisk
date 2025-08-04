@@ -1,6 +1,5 @@
 package com.example.pagination_new.domain.modules
 
-import android.content.Context
 import com.example.pagination_new.data.RepositoryImpl
 import com.example.pagination_new.domain.useCases.GetActorByIdUseCase
 import com.example.pagination_new.domain.useCases.GetAllFilmsUseCase
@@ -9,16 +8,13 @@ import com.example.pagination_new.domain.useCases.GetFilmsByGenreUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreWithPosterUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsWithPoster
 import com.example.pagination_new.domain.useCases.GetGenresUseCase
-import com.example.pagination_new.domain.useCases.SearchByTitleUseCase
+import com.example.pagination_new.domain.useCases.SearchFilmsByTitleUseCase
 //import com.example.pagination_new.domain.useCases.GetIdByNameUseCse
 import com.example.pagination_new.domain.useCases.SearchPersonsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
@@ -31,7 +27,7 @@ class Module {
     fun provideGetAllFilmsUseCase(repository: RepositoryImpl) = GetAllFilmsUseCase(repository)
 
     @Provides
-    fun provideSearchByTitleUseCase(repository: RepositoryImpl) = SearchByTitleUseCase(repository)
+    fun provideSearchFilmsByTitleUseCase(repository: RepositoryImpl) = SearchFilmsByTitleUseCase(repository)
 
     @Provides
     fun provideGetFilmsWithPoster(repository: RepositoryImpl) = GetFilmsWithPoster(repository)
@@ -41,7 +37,7 @@ class Module {
     fun provideGetGenres(repository: RepositoryImpl) = GetGenresUseCase(repository)
 
     @Provides
-    fun providegetFilmsByGenre(repository: RepositoryImpl) = GetFilmsByGenreUseCase(repository)
+    fun provideGetFilmsByGenre(repository: RepositoryImpl) = GetFilmsByGenreUseCase(repository)
 
     @Provides
     fun provideGetFilmsByGenreWithPoster(repository: RepositoryImpl) = GetFilmsByGenreWithPosterUseCase(repository)
@@ -60,6 +56,7 @@ class Module {
 
     @Provides
     fun searchPersons(repository: RepositoryImpl) = SearchPersonsUseCase(repository)
+
 
 }
 

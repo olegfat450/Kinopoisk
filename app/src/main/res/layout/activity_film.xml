@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".di.IdActivity">
+    tools:context=".di.FilmActivity">
 
 <!--    <LinearLayout-->
 <!--        android:id="@+id/linearLayout2"-->
@@ -72,17 +72,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp">
+
+
             <ImageView
                 android:id="@+id/imageTv"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="match_parent"
                 android:layout_margin="12dp"
                 android:layout_marginTop="32dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                app:srcCompat="@drawable/no_image" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center">
+                </ProgressBar>
+        </FrameLayout>
+
             <TextView
                 android:id="@+id/ageRatingTv"
                 android:layout_width="match_parent"
