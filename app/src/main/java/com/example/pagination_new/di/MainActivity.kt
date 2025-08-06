@@ -14,6 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pagination_new.data.PageSource
+import com.example.pagination_new.data.Progress
+import com.example.pagination_new.data.getAllFilmsEvent
 import com.example.pagination_new.databinding.ActivityMainBinding
 import com.example.pagination_new.di.adapter.PagingAdapter
 import com.example.pagination_new.domain.classess.genre.Genre_list
@@ -27,9 +29,10 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), PagingAdapter.OnItemClick,PageSource.Progress {
+class MainActivity : AppCompatActivity(), PagingAdapter.OnItemClick,Progress {
 
 val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
+    val page by lazy { PageSource() }
     private val vm: MainViewModel by viewModels()
     private var withPoster_flag = false
     private var genre = "Все жанры"
@@ -51,6 +54,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
             binding.progressDown.visibility = if( it.append is LoadState.Loading) View.VISIBLE else View.GONE
         }
 
+    page.execute(this)
 
              adapter.setOnItemClick(this)
                    getGenres()
@@ -72,6 +76,8 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
            override fun afterTextChanged(s: Editable?) {}
        } )
+
+
 
                binding.searchButton.setOnClickListener {
 
@@ -110,6 +116,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
         }
 
     }
+
 
 //    private fun getFilmsByProfession(profession: String) {
 //        binding.withPosterCheckBox.isEnabled = false
@@ -192,8 +199,14 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
         startActivity(intent)
     }
 
-    override fun progress() {
-       binding.progress.visibility = View.VISIBLE
+
+
+    override fun show() {
+        binding.progressUp.visibility = View.VISIBLE
+    }
+
+    override fun noshow() {
+       binding.progressUp.visibility = View.GONE
     }
 
 

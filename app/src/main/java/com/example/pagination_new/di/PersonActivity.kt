@@ -74,9 +74,11 @@ class PersonActivity : AppCompatActivity(){
                 CoroutineScope(Dispatchers.IO).launch {
                personItem.movies.forEach { listFilms += Pair(it.id, second = it.name?: it.alternativeName)
 
-                  runOnUiThread {  filmsAdapter = FilmAdapter(this@PersonActivity,listFilms)
-                   binding.FilmsTv.adapter = filmsAdapter
+                  runOnUiThread {
+                      filmsAdapter = FilmAdapter(this@PersonActivity,listFilms)
+                      binding.FilmsTv.adapter = filmsAdapter
                       showFilms(filmsAdapter,listFilms.size);
+
                   }
 
 
@@ -87,7 +89,9 @@ class PersonActivity : AppCompatActivity(){
 
                 }
 
-                filmographyOpen = true; binding.filmographyImage.setImageResource(R.drawable.up) }
+              //  filmographyOpen = true; binding.filmographyImage.setImageResource(R.drawable.up)
+
+            }
         }
 
 
@@ -137,10 +141,10 @@ class PersonActivity : AppCompatActivity(){
         val layoutItem = filmsAdapter.getView(0,null,binding.FilmsTv)
         layoutItem.measure(0,0)
         val heightItem = layoutItem.measuredHeight
-         val totalHeight = (heightItem * count) + (binding.FilmsTv.dividerHeight * count)
+          val totalHeight = (heightItem * count) + (binding.FilmsTv.dividerHeight * count)
             installSizeAdapter(totalHeight)
             binding.progressBar.visibility = View.GONE
-
+        filmographyOpen = true; binding.filmographyImage.setImageResource(R.drawable.up)
 
     }
     private fun installSizeAdapter(size: Int){
