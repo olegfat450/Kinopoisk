@@ -17,14 +17,18 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
+interface Progress { fun show(); fun noshow() }
+var this_progress: Progress? = null
 
-class PageSource (val event: Event) : PagingSource<Int, PagerAdapterClass>() {
+class PageSource (val event: Event? = null) : PagingSource<Int, PagerAdapterClass>() {
     val limit = 30
-   // val repository = RepositoryImpl()
-  //  val getDataUseCase = GetDataUseCase(repository)
 
-     private var progress: Progress? = null
-    interface Progress { fun progress() }
+
+        fun execute( progress: Progress)  {  this_progress = progress };
+
+
+
+
 
     override fun getRefreshKey(state: PagingState<Int, PagerAdapterClass>): Int? {
         Log.d("Ml","getRefreshKeyStarted")
@@ -38,19 +42,19 @@ class PageSource (val event: Event) : PagingSource<Int, PagerAdapterClass>() {
         val page_ = ((page.toDouble()/limit) + 1).roundToInt()
 
 
-        var data: List<PagerAdapterClass> = listOf()
+        var data: List<PagerAdapterClass>? = null
 
         var nextKey: Int? = null
         var prevKey: Int? = null
-      //  Log.d("Ml","$page")
 
 
-              progress?.progress()
+        this_progress?.show()
+
        return try {
 
            when (event) {
 
-               is getAllFilmsEvent -> {  data = mapDocToPagerAdapterClass( retrofit.getAllFIlms(page_,limit).body()!!.docs )}
+               is getAllFilmsEvent -> { data = mapDocToPagerAdapterClass( retrofit.getAllFIlms(page_,limit).body()!!.docs ); }
                is getFilmByTitleEvent -> { data = mapDocToPagerAdapterClass(retrofit.getFilmsByTitle(title = event.title, page = page_, limit = limit).body()!!.docs) }
                is getFilmsWithPosterEvent -> { data = mapDocToPagerAdapterClass(retrofit.getFilmsWithPoster(page_,limit).body()!!.docs) }
                is getFilmsByGenreEvent -> { data = mapDocToPagerAdapterClass(retrofit.getFilmsByGenre(page_,limit,event.genre).body()!!.docs)}
@@ -58,12 +62,14 @@ class PageSource (val event: Event) : PagingSource<Int, PagerAdapterClass>() {
                is getFilmsByProfessionEvent -> { data = mapDocToPagerAdapterClass(retrofit.getFilmsByProfession(page_,limit, profession = event.profession,id = event.id).body()!!.docs)}
                is searchPersonsEvent -> { data = mapPersonsToPagerAdapterClass( retrofit.searchPersons(name = event.name, page = page_, limit = limit).body()!!)
                }
+
            }
 
 
-           data.let {
+           data?.let {
+               this_progress?.noshow()
 
-
+        //  MyClass(ma).noexecute()
                nextKey = if (data.size < limit) null else page + limit
 
               prevKey = if (page == 1) null else page - limit
@@ -71,21 +77,21 @@ class PageSource (val event: Event) : PagingSource<Int, PagerAdapterClass>() {
 
            }
 
-           LoadResult.Page(data = data,prevKey = prevKey, nextKey = nextKey)
+           LoadResult.Page(data = data?: emptyList(),prevKey = prevKey, nextKey = nextKey)
+
 
 
         } catch (e:Exception) { Log.d("Ml","Error: ${e.message}"); LoadResult.Error(e) }
 
-    }
 
-    fun progress(progress: Progress) { this.progress = progress }
+
+    }
 
 }
 
 fun mapDocToPagerAdapterClass(doc: List<Doc>): List<PagerAdapterClass> {
 
     var list: List<PagerAdapterClass> = listOf()
-
 
     doc.forEach {
 

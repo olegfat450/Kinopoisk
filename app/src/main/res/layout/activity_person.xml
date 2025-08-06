@@ -93,42 +93,37 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1" />
 
-            <LinearLayout
+           <FrameLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="8dp"
+               android:background="@color/blue">
+
+               <LinearLayout
                 android:id="@+id/filmography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@color/blue"
+
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:layout_weight="1"
                     android:gravity="center"
+
+                    android:layout_weight="1"
                     android:text="Фильмография"
                     android:textColor="@color/white">
                 </TextView>
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="0"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+
 
                 <ImageView
                     android:id="@+id/filmographyImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                   android:layout_gravity="center"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/down">
 
@@ -136,6 +131,19 @@
 
             </LinearLayout>
 
+               <ProgressBar
+                   android:id="@+id/progressBar"
+                   style="?android:attr/progressBarStyle"
+                   android:layout_width="24dp"
+                   android:layout_height="24dp"
+                   android:layout_gravity="center"
+                   android:visibility="gone"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+           </FrameLayout>
 
             <ListView
                 android:id="@+id/FilmsTv"

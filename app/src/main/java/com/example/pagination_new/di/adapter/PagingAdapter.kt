@@ -1,5 +1,6 @@
 package com.example.pagination_new.di.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -53,6 +54,7 @@ class PagingAdapter (): PagingDataAdapter<PagerAdapterClass, PagingAdapter.MVH>(
                               rating.text = item?.text_4
                    item?.age?.let { if( item.age != 0) { ageText.textSize = 16f; ageText.text = "Возраст: ${item.age}" } }
 
+                      Log.d("Ml","$onItemClick")
 
 
 //            Log.d("Ml","${item?.poster?.url} --  ${item?.poster?.previewUrl}")

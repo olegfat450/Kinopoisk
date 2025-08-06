@@ -13,6 +13,9 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.pagination_new.data.PageSource
+import com.example.pagination_new.data.Progress
+import com.example.pagination_new.data.getAllFilmsEvent
 import com.example.pagination_new.databinding.ActivityMainBinding
 import com.example.pagination_new.di.adapter.PagingAdapter
 import com.example.pagination_new.domain.classess.genre.Genre_list
@@ -26,9 +29,10 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), PagingAdapter.OnItemClick {
+class MainActivity : AppCompatActivity(), PagingAdapter.OnItemClick,Progress {
 
 val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
+    val page by lazy { PageSource() }
     private val vm: MainViewModel by viewModels()
     private var withPoster_flag = false
     private var genre = "Все жанры"
@@ -49,6 +53,8 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
             binding.progressUp.visibility =  if( it.prepend is LoadState.Loading || adapter.itemCount == 0 ) View.VISIBLE else View.GONE
             binding.progressDown.visibility = if( it.append is LoadState.Loading) View.VISIBLE else View.GONE
         }
+
+    page.execute(this)
 
              adapter.setOnItemClick(this)
                    getGenres()
@@ -71,30 +77,32 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
            override fun afterTextChanged(s: Editable?) {}
        } )
 
+
+
                binding.searchButton.setOnClickListener {
+
+                   if(binding.searchText.text.isBlank()) { search = "Поиск фильмов"; binding.searchText.hint = search; getFilms(); launchLifecycle(); return@setOnClickListener }
 
                   //  if(binding.searchText.text.isBlank() && search != "Поиск фильмов") { return@setOnClickListener;  }
 
 //                        if (binding.searchText.text.isBlank())  { vm.getAllFilms(); launchLifecycle()
 //                          genre = "Все жанры"; return@setOnClickListener }
 
+
+
+
                          when(search) {
                              "Поиск фильмов" -> {
-                                 binding.withPosterCheckBox.isEnabled = false
-                                 vm.searchFilmsByTitle(binding.searchText.text.toString())
-                                 launchLifecycle()
-                             }
 
+                                 Log.d("Ml","${search}  --   ${binding.searchText.text}")
+                                 vm.searchFilmsByTitle(binding.searchText.text.toString())
+                             }
 
                              "Поиск актеров" -> {
                                  vm.searchPersons(binding.searchText.text.toString())
-                                 launchLifecycle()
-
                              }
-
-
                          }
-
+                   launchLifecycle()
                }
 
         binding.filter.setOnClickListener { showfilterMenu(it) }
@@ -108,6 +116,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
         }
 
     }
+
 
 //    private fun getFilmsByProfession(profession: String) {
 //        binding.withPosterCheckBox.isEnabled = false
@@ -157,7 +166,9 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
             menu.setOnMenuItemClickListener {
 
                 search = it.title.toString(); binding.searchText.hint = search;
-                if (search == "Поиск актеров") binding.withPosterCheckBox.isEnabled = false else binding.withPosterCheckBox.isEnabled = true
+                if (search == "Поиск фильмов" && binding.searchText.text.isBlank()) { binding.withPosterCheckBox.isEnabled = true } else
+
+                    binding.withPosterCheckBox.isEnabled = false
                 true }
 
     }
@@ -179,13 +190,23 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
         var intent: Intent? = null
 
         when(search) {
-            "Поиск фильмов" -> {  intent = Intent(this,IdActivity::class.java) }
+            "Поиск фильмов" -> {  intent = Intent(this,FilmActivity::class.java) }
             "Поиск актеров" -> { intent = Intent(this,PersonActivity::class.java)}
         }
 
 
         intent?.putExtra("id",id)
         startActivity(intent)
+    }
+
+
+
+    override fun show() {
+        binding.progressUp.visibility = View.VISIBLE
+    }
+
+    override fun noshow() {
+       binding.progressUp.visibility = View.GONE
     }
 
 
