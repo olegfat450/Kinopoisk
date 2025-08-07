@@ -75,7 +75,9 @@ class FilmActivity : AppCompatActivity(),PersonAdapter.OnItemClick {
 
             countriesText.text = "Производство: "
             description.countries.forEach { countriesText.append(" ${it.name}") };
-            yearText.setText("Дата выхода: ${description.year}")
+
+            val year = if(description.year!= null) description.year else "Н/Д"
+            yearText.setText("Дата выхода: $year")
 
             ratingText.setText( " Imdb: ${description.rating.imdb}\n Kp: ${description.rating.kp}\n FilmCritics: ${description.rating.filmCritics}\n Russianfilmcritic: ${description.rating.russianFilmCritics}")
 

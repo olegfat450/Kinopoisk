@@ -57,14 +57,6 @@ class PersonActivity : AppCompatActivity(){
         data class D(val id:Int,val name: String)
         var listFilms: List<Pair<Int,String?>> = emptyList()
 
-
-
-
-
-
-
-      //  binding.FilmsTv.layoutParams.height = 0
-
         binding.filmography.setOnClickListener {
 
             if(filmographyOpen) { binding.filmographyImage.setImageResource(R.drawable.down); filmographyOpen = false; installSizeAdapter(0)
@@ -77,19 +69,11 @@ class PersonActivity : AppCompatActivity(){
                   runOnUiThread {
                       filmsAdapter = FilmAdapter(this@PersonActivity,listFilms)
                       binding.FilmsTv.adapter = filmsAdapter
-                      showFilms(filmsAdapter,listFilms.size);
-
-                  }
-
+                      showFilms(filmsAdapter,listFilms.size); }
 
                }
-                  //  listFilms.forEach { Log.d("Ml",it.second.toString()) }
-
-
 
                 }
-
-              //  filmographyOpen = true; binding.filmographyImage.setImageResource(R.drawable.up)
 
             }
         }
@@ -125,8 +109,11 @@ class PersonActivity : AppCompatActivity(){
                        personItem.enName?.let { enNameTv.setText(it) }
                        personItem.birthday?.let {
 
-                           birthTv.setText("Дата рождения: ${dateFormat(it)}") }
-                       personItem.age?.let { birthTv.append("  Возраст: $it") }
+                           birthDataTv.setText("Дата рождения: ${dateFormat(it)}") }
+                       personItem.age?.let { birthDataTv.append("  Возраст: $it") }
+
+                     if ((personItem.birthPlace) != null && personItem.birthPlace.isNotEmpty() ) { birthPlaceTv.setText("Место рождения: "); personItem.birthPlace.forEach { birthPlaceTv.append(" ${it.value} /") } }
+
             personItem.death?.let { deathTv.text = "Дата смерти: ${dateFormat(it)}" }
 
            if( personItem.facts?.isEmpty() == false) {  factsTv.setText("Интерестные факты\n")

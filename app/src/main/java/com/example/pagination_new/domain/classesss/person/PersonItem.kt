@@ -2,7 +2,7 @@ package com.example.pagination_new.domain.classesss.person
 
 data class PersonItem(
     val age: Int?,
-    val birthPlace: List<BirthPlace>,
+    val birthPlace: List<BirthPlace>?,
     val birthday: String?,
     val death: String?,
     val deathPlace: List<DeathPlace>,

@@ -78,7 +78,16 @@
                 android:textStyle="italic" />
 
             <TextView
-                android:id="@+id/birthTv"
+                android:id="@+id/birthDataTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/birthPlaceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -155,12 +164,18 @@
 
             </ListView>
 
+<View
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:background="@color/black"
+    >
 
+</View>
             <TextView
                 android:id="@+id/factsTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:layout_weight="1"
@@ -168,7 +183,6 @@
 
                 android:textSize="18sp"
                 android:textStyle="bold"
-
                 />
 
 
