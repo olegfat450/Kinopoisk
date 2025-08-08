@@ -45,12 +45,6 @@ class Module {
     @Provides
     fun provideGetFilmById(repository: RepositoryImpl) = GetFilmByIdUseCase(repository)
 
-//    @Provides
-//    fun provideGetIdByName(repository: RepositoryImpl) = GetIdByNameUseCse(repository)
-
-//    @Provides
-//    fun provideGetFilmsByProfessional(repository: RepositoryImpl) = GetFilmsByProfessionalUseCase(repository)
-
     @Provides
     fun provideGetActorById(repository: RepositoryImpl) = GetActorByIdUseCase(repository)
 

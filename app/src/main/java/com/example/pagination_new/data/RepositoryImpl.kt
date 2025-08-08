@@ -41,13 +41,6 @@ class RepositoryImpl: Repository {
     override fun getFilmsByGenreWithPoster(genre: String): Flow<PagingData<PagerAdapterClass>> {
         return Pager(getFilmsByGenreWithPosterEvent(genre))
     }
-
-//    override fun getFilmsByProfession(profession: String,id: Int): Flow<PagingData<PagerAdapterClass>> {
-//        return Pager(getFilmsByProfessionEvent(profession,id))
-//    }
-
-//    override suspend fun getIdByName(name: String) = retrofit.getIdByName(name).docs.get(0).id
-
     override suspend fun getFilmById(id: Int): Response<Description>? {
         return retrofit.getFilmById(id)
     }

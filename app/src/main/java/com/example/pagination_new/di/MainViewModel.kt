@@ -41,7 +41,6 @@ class MainViewModel @Inject constructor(
     fun getFilmsWithPoster() {data = getFilmsWithPoster.execute().cachedIn(viewModelScope)}
     fun getFilmsByGenre(genre: String) {data = getFilmsByGenreUseCase.execute(genre).cachedIn(viewModelScope)}
     fun getFilmsByGenreWithPoster(genre: String) {data = getFilmsByGenreWithPoster.execute(genre).cachedIn(viewModelScope)}
-//    fun getFilmsByProfession(profession: String,id: Int) { data = getFilmsByProfession.execute(profession,id).cachedIn(viewModelScope)}
     fun searchPersons(name: String) { data = searchPersonsUseCase.execute(name)}
 
 

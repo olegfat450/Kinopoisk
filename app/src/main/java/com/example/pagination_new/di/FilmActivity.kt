@@ -68,7 +68,6 @@ class FilmActivity : AppCompatActivity(),PersonAdapter.OnItemClick {
 
             description.genres.forEach { binding.genresTv.append("  ${it.name}") }
 
-        //  description.persons.forEach {  Log.d("Ml","${it.name}") }
             head.titleText.text = if(description.name != null) description.name else description.alternativeName
 
             descriptionTv.text = description.description

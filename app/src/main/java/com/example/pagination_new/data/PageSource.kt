@@ -31,7 +31,6 @@ class PageSource (val event: Event? = null) : PagingSource<Int, PagerAdapterClas
 
 
     override fun getRefreshKey(state: PagingState<Int, PagerAdapterClass>): Int? {
-        Log.d("Ml","getRefreshKeyStarted")
         val anchorPosition = state.anchorPosition ?: return null
         val page = state.closestPageToPosition(anchorPosition) ?: return null
         return page.prevKey?.plus(limit) ?: page.nextKey?.minus(limit)
@@ -59,7 +58,6 @@ class PageSource (val event: Event? = null) : PagingSource<Int, PagerAdapterClas
                is getFilmsWithPosterEvent -> { data = mapDocToPagerAdapterClass(retrofit.getFilmsWithPoster(page_,limit).body()!!.docs) }
                is getFilmsByGenreEvent -> { data = mapDocToPagerAdapterClass(retrofit.getFilmsByGenre(page_,limit,event.genre).body()!!.docs)}
                is getFilmsByGenreWithPosterEvent -> { data = mapDocToPagerAdapterClass (retrofit.getFilmsByGenreWithPoster(page_,limit, genre = event.genre, notNullFields = "poster.url").body()!!.docs)}
-               is getFilmsByProfessionEvent -> { data = mapDocToPagerAdapterClass(retrofit.getFilmsByProfession(page_,limit, profession = event.profession,id = event.id).body()!!.docs)}
                is searchPersonsEvent -> { data = mapPersonsToPagerAdapterClass( retrofit.searchPersons(name = event.name, page = page_, limit = limit).body()!!)
                }
 
@@ -69,7 +67,7 @@ class PageSource (val event: Event? = null) : PagingSource<Int, PagerAdapterClas
            data?.let {
                this_progress?.noshow()
 
-        //  MyClass(ma).noexecute()
+
                nextKey = if (data.size < limit) null else page + limit
 
               prevKey = if (page == 1) null else page - limit

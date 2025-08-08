@@ -83,13 +83,6 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
                    if(binding.searchText.text.isBlank()) { search = "Поиск фильмов"; binding.searchText.hint = search; getFilms(); launchLifecycle(); return@setOnClickListener }
 
-                  //  if(binding.searchText.text.isBlank() && search != "Поиск фильмов") { return@setOnClickListener;  }
-
-//                        if (binding.searchText.text.isBlank())  { vm.getAllFilms(); launchLifecycle()
-//                          genre = "Все жанры"; return@setOnClickListener }
-
-
-
 
                          when(search) {
                              "Поиск фильмов" -> {
@@ -116,17 +109,6 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
         }
 
     }
-
-
-//    private fun getFilmsByProfession(profession: String) {
-//        binding.withPosterCheckBox.isEnabled = false
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val id =
-//                getIdByName.execute(binding.searchText.text.toString())
-//            vm.getFilmsByProfession(profession = profession, id); launchLifecycle() }
-//
-//    }
-
 
     fun getGenres() {
         CoroutineScope(Dispatchers.IO).launch {  try {  genre_list = getGenresUseCase.execute() }  catch (e:Exception) {

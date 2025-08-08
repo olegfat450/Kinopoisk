@@ -128,7 +128,7 @@ class PersonActivity : AppCompatActivity(){
         val layoutItem = filmsAdapter.getView(0,null,binding.FilmsTv)
         layoutItem.measure(0,0)
         val heightItem = layoutItem.measuredHeight
-          val totalHeight = (heightItem * count) + (binding.FilmsTv.dividerHeight * count)
+           val totalHeight = (heightItem * count) + (binding.FilmsTv.dividerHeight * count)
             installSizeAdapter(totalHeight)
             binding.progressBar.visibility = View.GONE
         filmographyOpen = true; binding.filmographyImage.setImageResource(R.drawable.up)

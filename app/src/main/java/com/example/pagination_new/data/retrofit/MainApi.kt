@@ -68,23 +68,6 @@ suspend fun getFilmsWithPoster(
         @Path("id") id: Int
     ): Response<Description>?
 
-    @GET("v1.4/person/search")
-    @Headers(X_API_KEY)
-    suspend fun getIdByName(
-        @Query("query") name: String,
-        @Query("page") page: Number = 1,
-        @Query("limit") limit: Number = 1
-
-    ): Docs
-
-    @GET("v1.4/movie")
-    @Headers(X_API_KEY)
-    suspend fun getFilmsByProfession(
-        @Query("page") page: Number,
-        @Query("limit") limit: Number,
-        @Query("persons.profession") profession: String,
-        @Query("persons.id") id: Int
-    ): Response<Film>
 
     @GET("v1.4/person/{id}")
     @Headers(X_API_KEY)
