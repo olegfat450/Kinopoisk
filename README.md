@@ -1,5 +1,5 @@
-Поиск фильиов на Кинопоиске.
-Основные технологии: CleanArchitecrure,Pager3,ResycleView,MvvM,DaggerHilt. 
+Поиск фильмов на Кинопоиске.
+Основные технологии: CleanArchitecrure,Pager3,RecycleView,MvvM,DaggerHilt. 
 
 
 
