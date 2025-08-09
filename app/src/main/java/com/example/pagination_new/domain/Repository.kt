@@ -33,5 +33,7 @@ interface Repository {
 
     fun searchPersons(name: String): Flow<PagingData<PagerAdapterClass>>
 
+    fun getTop250Films(): Flow<PagingData<PagerAdapterClass>>
+
 
 }

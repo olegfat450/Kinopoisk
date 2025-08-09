@@ -10,3 +10,4 @@ class getFilmsWithPosterEvent(): Event
 class getFilmsByGenreEvent(val genre: String): Event
 class getFilmsByGenreWithPosterEvent(val genre: String): Event
 class searchPersonsEvent(val name: String): Event
+class getTop250FilmsEvent(): Event

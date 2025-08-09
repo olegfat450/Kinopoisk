@@ -53,6 +53,8 @@ class RepositoryImpl: Repository {
         return Pager(searchPersonsEvent(name))
     }
 
+    override fun getTop250Films() = Pager(getTop250FilmsEvent())
+
 
     fun Pager(event: Event) = Pager(
         PagingConfig(
