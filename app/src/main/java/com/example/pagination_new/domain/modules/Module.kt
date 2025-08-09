@@ -8,6 +8,7 @@ import com.example.pagination_new.domain.useCases.GetFilmsByGenreUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreWithPosterUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsWithPoster
 import com.example.pagination_new.domain.useCases.GetGenresUseCase
+import com.example.pagination_new.domain.useCases.GetTop250FilmsUseCase
 import com.example.pagination_new.domain.useCases.SearchFilmsByTitleUseCase
 //import com.example.pagination_new.domain.useCases.GetIdByNameUseCse
 import com.example.pagination_new.domain.useCases.SearchPersonsUseCase
@@ -50,6 +51,9 @@ class Module {
 
     @Provides
     fun searchPersons(repository: RepositoryImpl) = SearchPersonsUseCase(repository)
+
+    @Provides
+    fun getTop250Films(repository: RepositoryImpl) = GetTop250FilmsUseCase(repository)
 
 
 }

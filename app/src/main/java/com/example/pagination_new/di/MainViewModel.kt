@@ -11,6 +11,7 @@ import com.example.pagination_new.domain.useCases.GetFilmsByGenreUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreWithPosterUseCase
 
 import com.example.pagination_new.domain.useCases.GetFilmsWithPoster
+import com.example.pagination_new.domain.useCases.GetTop250FilmsUseCase
 
 import com.example.pagination_new.domain.useCases.SearchFilmsByTitleUseCase
 import com.example.pagination_new.domain.useCases.SearchPersonsUseCase
@@ -27,7 +28,8 @@ class MainViewModel @Inject constructor(
                                    private val getFilmsByGenreUseCase: GetFilmsByGenreUseCase,
                                    private val getFilmsWithPoster: GetFilmsWithPoster,
                                    private val getFilmsByGenreWithPoster: GetFilmsByGenreWithPosterUseCase,
-                                      private val searchPersonsUseCase: SearchPersonsUseCase
+                                      private val searchPersonsUseCase: SearchPersonsUseCase,
+                                      private val getTop250FilmsUseCase: GetTop250FilmsUseCase
 
                                ): ViewModel() {
 
@@ -41,7 +43,8 @@ class MainViewModel @Inject constructor(
     fun getFilmsWithPoster() {data = getFilmsWithPoster.execute().cachedIn(viewModelScope)}
     fun getFilmsByGenre(genre: String) {data = getFilmsByGenreUseCase.execute(genre).cachedIn(viewModelScope)}
     fun getFilmsByGenreWithPoster(genre: String) {data = getFilmsByGenreWithPoster.execute(genre).cachedIn(viewModelScope)}
-    fun searchPersons(name: String) { data = searchPersonsUseCase.execute(name)}
+    fun searchPersons(name: String) { data = searchPersonsUseCase.execute(name).cachedIn(viewModelScope)}
+    fun getTop250Films() { data = getTop250FilmsUseCase.execute().cachedIn(viewModelScope)}
 
 
 }

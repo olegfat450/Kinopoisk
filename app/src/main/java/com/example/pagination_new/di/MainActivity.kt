@@ -6,10 +6,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowInsets
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.marginTop
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
@@ -46,7 +48,19 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+    val resources = resources
+    val resourcesId = resources.getIdentifier("status_bar_height","dimen","android")
+    val h = resources.getDimensionPixelSize(resourcesId)
+    binding.main.setPadding(0,h,0,0)
         setContentView(binding.root)
+
+
+
+  //  Log.d("Ml","${resources.getDimensionPixelSize(resourcesId)}")
+
+
+
+
 
        binding.searchText.hint = search
         adapter.addLoadStateListener {
@@ -77,7 +91,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
            override fun afterTextChanged(s: Editable?) {}
        } )
 
-
+                binding.top250Text.setOnClickListener { vm.getTop250Films(); launchLifecycle() }
 
                binding.searchButton.setOnClickListener {
 

@@ -36,13 +36,11 @@ class PagingAdapter (): PagingDataAdapter<PagerAdapterClass, PagingAdapter.MVH>(
         val item = getItem(position)
         holder.binding.apply { title.text =item?.title
                                 ageText.textSize = 0f
-//                              if (item?.poster?.previewUrl != null)  {
-//                                  Log.d("Ml","picasso")
-//                                  Picasso.get().load(item.poster.previewUrl.toUri()).into(image)
-//                              } else {image.setImageResource(R.drawable.no_image) }
-                          var imageItem = ""
-                         if(item?.image?.length!! > 6) { imageItem = if(item.image.get(6) == '/') item.image else item.image.drop(6) }
 
+                          var imageItem = ""
+
+
+                        item?.image?.let { if( item.image.length > 6) { imageItem = if(item.image.get(6) == '/') item.image else item.image.drop(6) } }
 
                         image.load(imageItem) {  error(R.drawable.no_image) }
 
@@ -63,7 +61,7 @@ class PagingAdapter (): PagingDataAdapter<PagerAdapterClass, PagingAdapter.MVH>(
             item?.let { onItemClick?.onItemClick(item.id) }
 
 
-          //  Toast.makeText(context,"${item?.id}",Toast.LENGTH_LONG).show()
+
         }
 
 

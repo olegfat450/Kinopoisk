@@ -82,6 +82,14 @@ suspend fun getFilmsWithPoster(
         @Query("page") page: Number,
         @Query("limit") limit: Number
     ): Response<Persons>
+
+    @GET("v1.4/movie")
+    @Headers(X_API_KEY)
+    suspend fun getTop250Films(
+        @Query("page") page: Number,
+        @Query("limit") limit: Number,
+        @Query("notNullFields") notNullFields: String = "top250"
+    ): Response<Film>
 }
 
 

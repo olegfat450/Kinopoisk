@@ -58,7 +58,8 @@ class PageSource (val event: Event? = null) : PagingSource<Int, PagerAdapterClas
                is getFilmsWithPosterEvent -> { data = mapDocToPagerAdapterClass(retrofit.getFilmsWithPoster(page_,limit).body()!!.docs) }
                is getFilmsByGenreEvent -> { data = mapDocToPagerAdapterClass(retrofit.getFilmsByGenre(page_,limit,event.genre).body()!!.docs)}
                is getFilmsByGenreWithPosterEvent -> { data = mapDocToPagerAdapterClass (retrofit.getFilmsByGenreWithPoster(page_,limit, genre = event.genre, notNullFields = "poster.url").body()!!.docs)}
-               is searchPersonsEvent -> { data = mapPersonsToPagerAdapterClass( retrofit.searchPersons(name = event.name, page = page_, limit = limit).body()!!)
+               is searchPersonsEvent -> { data = mapPersonsToPagerAdapterClass( retrofit.searchPersons(name = event.name, page = page_, limit = limit).body()!!) }
+               is getTop250FilmsEvent -> { data = mapDocToPagerAdapterClass(retrofit.getTop250Films(page_,limit).body()!!.docs)
                }
 
            }
