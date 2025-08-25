@@ -1,14 +1,22 @@
 package com.example.pagination_new.domain.modules
 
+import android.app.Application
+import androidx.room.Room
 import com.example.pagination_new.data.RepositoryImpl
+import com.example.pagination_new.data.retrofit.MainDb
+import com.example.pagination_new.domain.useCases.DeleteFilmByIdUseCase
 import com.example.pagination_new.domain.useCases.GetActorByIdUseCase
 import com.example.pagination_new.domain.useCases.GetAllFilmsUseCase
+import com.example.pagination_new.domain.useCases.GetFavoriteFilmsIdUseCase
+import com.example.pagination_new.domain.useCases.GetFavoriteFilmsUseCase
 import com.example.pagination_new.domain.useCases.GetFilmByIdUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreUseCase
 import com.example.pagination_new.domain.useCases.GetFilmsByGenreWithPosterUseCase
-import com.example.pagination_new.domain.useCases.GetFilmsWithPoster
+
+import com.example.pagination_new.domain.useCases.GetFilmsWithPosterUseCase
 import com.example.pagination_new.domain.useCases.GetGenresUseCase
 import com.example.pagination_new.domain.useCases.GetTop250FilmsUseCase
+import com.example.pagination_new.domain.useCases.InsertFilmUseCase
 import com.example.pagination_new.domain.useCases.SearchFilmsByTitleUseCase
 //import com.example.pagination_new.domain.useCases.GetIdByNameUseCse
 import com.example.pagination_new.domain.useCases.SearchPersonsUseCase
@@ -16,6 +24,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
@@ -31,7 +40,7 @@ class Module {
     fun provideSearchFilmsByTitleUseCase(repository: RepositoryImpl) = SearchFilmsByTitleUseCase(repository)
 
     @Provides
-    fun provideGetFilmsWithPoster(repository: RepositoryImpl) = GetFilmsWithPoster(repository)
+    fun provideGetFilmsWithPoster(repository: RepositoryImpl) = GetFilmsWithPosterUseCase(repository)
 
 
     @Provides
@@ -55,8 +64,28 @@ class Module {
     @Provides
     fun getTop250Films(repository: RepositoryImpl) = GetTop250FilmsUseCase(repository)
 
+    @Provides
+    fun provideGetFavoriteFilms(repository: RepositoryImpl) = GetFavoriteFilmsUseCase(repository)
 
+    @Provides
+    fun provideGetFavoriteFilmsId(repository: RepositoryImpl) = GetFavoriteFilmsIdUseCase(repository)
+
+    @Provides
+    fun provideDeleteFilmById(repository: RepositoryImpl) = DeleteFilmByIdUseCase(repository)
+
+    @Provides
+    fun provideInsertFilm(repository: RepositoryImpl) = InsertFilmUseCase(repository)
+
+//    @Provides
+//    fun provideMainDb(app: Application): MainDb {
+//        return Room.databaseBuilder(
+//            app,
+//            MainDb::class.java,
+//            "favoriteFilms.db"
+//        ).build()
+//    }
 }
+
 
 // @Module
 // @InstallIn(SingletonComponent::class)

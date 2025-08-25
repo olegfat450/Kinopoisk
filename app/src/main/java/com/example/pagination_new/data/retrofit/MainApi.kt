@@ -1,6 +1,7 @@
 package com.example.pagination_new.data.retrofit
 
-import com.example.pagination_new.data.retrofit.Const.Companion.X_API_KEY
+import com.example.pagination_new.data.retrofit.Const.Companion.X_API_KEY_O
+import com.example.pagination_new.data.retrofit.Const.Companion.X_API_KEY_T
 import com.example.pagination_new.domain.classesss.film.Film
 import com.example.pagination_new.domain.classesss.film.Description
 import com.example.pagination_new.domain.classess.genre.Genre_list
@@ -14,6 +15,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MainApi {
+
+   companion object { const val X_API_KEY = X_API_KEY_O }
 
     @GET("v1.4/movie")
     @Headers(X_API_KEY)

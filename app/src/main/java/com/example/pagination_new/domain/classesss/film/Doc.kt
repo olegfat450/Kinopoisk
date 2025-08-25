@@ -1,5 +1,8 @@
 package com.example.pagination_new.domain.classesss.film
 
+import androidx.room.Entity
+
+
 data class Doc(
     val ageRating: Int,
     val alternativeName: String,
