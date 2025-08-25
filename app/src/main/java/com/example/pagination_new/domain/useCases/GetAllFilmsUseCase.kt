@@ -1,8 +1,12 @@
 package com.example.pagination_new.domain.useCases
 
-import com.example.pagination_new.data.RepositoryImpl
+import androidx.paging.PagingData
 import com.example.pagination_new.domain.Repository
+import com.example.pagination_new.domain.classesss.PagerAdapterClass
+import kotlinx.coroutines.flow.Flow
 
 class GetAllFilmsUseCase(val repository: Repository) {
-    fun execute() = repository.getAllFilms()
+    fun execute(): Flow<PagingData<PagerAdapterClass>> {
+
+       return repository.getAllFilms() }
 }

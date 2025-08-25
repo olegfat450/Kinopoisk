@@ -63,5 +63,29 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("io.coil-kt:coil:2.6.0")
     implementation("org.jsoup:jsoup:1.14.3")
+
+    implementation("androidx.room:room-ktx:2.7.2")
+    kapt("androidx.room:room-compiler:2.7.2")
    // implementation("org.jetbrains.kotlinx:kotlinx-datatime:0.5.0")
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

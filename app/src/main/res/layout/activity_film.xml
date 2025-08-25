@@ -8,56 +8,16 @@
     android:layout_height="match_parent"
     tools:context=".di.FilmActivity">
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/linearLayout2"-->
-<!--        android:layout_width="match_parent"-->
 
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="52dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/head"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-
-<!--        <ImageView-->
-<!--            android:id="@+id/buttonBack"-->
-<!--            android:layout_width="32dp"-->
-<!--            android:layout_height="32dp"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginTop="12dp"-->
-
-<!--            app:srcCompat="@drawable/arrow_back" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/titleText"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="12dp"-->
-<!--            android:layout_marginBottom="12dp"-->
-<!--            android:layout_marginEnd="12dp"-->
-<!--            android:gravity="center"-->
-<!--            android:textSize="24sp"-->
-<!--            android:textStyle="bold" />-->
-<!--        &lt;!&ndash;    </LinearLayout>&ndash;&gt;-->
-<!--    </LinearLayout>-->
 
     <include
         android:id="@+id/head"
         layout="@layout/head">
-
     </include>
+
+
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -94,6 +54,8 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center">
                 </ProgressBar>
+
+
         </FrameLayout>
 
             <TextView

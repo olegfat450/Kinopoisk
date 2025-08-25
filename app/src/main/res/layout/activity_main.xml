@@ -137,7 +137,7 @@
             android:textColor="@color/liteGray"
          />
         <TextView
-            android:id="@+id/textView_1"
+            android:id="@+id/favoriteFilmsText"
             android:gravity="center"
             android:maxLines="1"
             android:textColor="@color/white"

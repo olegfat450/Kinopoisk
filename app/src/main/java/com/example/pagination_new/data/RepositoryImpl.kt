@@ -3,16 +3,19 @@ package com.example.pagination_new.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.pagination_new.data.retrofit.MainDb
 import com.example.pagination_new.data.retrofit.RetrofitInstance.retrofit
+import com.example.pagination_new.domain.PageSource
 import com.example.pagination_new.domain.classesss.PagerAdapterClass
 import com.example.pagination_new.domain.Repository
 import com.example.pagination_new.domain.classesss.film.Description
 import com.example.pagination_new.domain.classess.genre.Genre_list
+import com.example.pagination_new.domain.classesss.FavoriteFilm
 import com.example.pagination_new.domain.classesss.person.PersonItem
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
-class RepositoryImpl: Repository {
+class RepositoryImpl (): Repository {
 
     val pageSize = 10
     val initialSize = 30
@@ -55,8 +58,30 @@ class RepositoryImpl: Repository {
 
     override fun getTop250Films() = Pager(getTop250FilmsEvent())
 
+    override suspend fun getFavoriteFilms(db: MainDb): Flow<PagingData<PagerAdapterClass>> {
 
-    fun Pager(event: Event) = Pager(
+        return Pager(getFavoriteFilmsEvent(db))
+    }
+
+    override suspend fun getFavoriteFilmsId(db: MainDb): List<Int> {
+        var list: List<Int> = listOf()
+        val d = db.dao().getFavoriteFilms(); d.forEach { list += it.id }
+        return list
+    }
+
+    override suspend fun deleteFilmById(db: MainDb, id: Int) {
+       db.dao().deleteFilmById(id)
+    }
+
+    override suspend fun insertFilm(db: MainDb,film: FavoriteFilm) {
+        db.dao().insertFilm(film)
+    }
+
+
+    fun Pager (event: Event) =
+
+
+   Pager(
         PagingConfig(
             pageSize = pageSize,
             initialLoadSize = initialSize,

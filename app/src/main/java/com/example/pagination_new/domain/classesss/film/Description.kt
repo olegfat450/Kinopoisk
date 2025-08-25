@@ -8,6 +8,7 @@ package com.example.pagination_new.domain.classesss.film
 data class Description(
     val ageRating: Int?,
     val alternativeName: String,
+    var favorite: Boolean = false,
 //    val audience: List<Audience>,
 //    val backdrop: Backdrop,
 //    val budget: Budget,
