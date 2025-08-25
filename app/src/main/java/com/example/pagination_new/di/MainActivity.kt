@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -13,8 +12,8 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.pagination_new.data.PageSource
-import com.example.pagination_new.data.Progress
+import com.example.pagination_new.domain.PageSource
+import com.example.pagination_new.domain.Progress
 import com.example.pagination_new.data.retrofit.MainDb
 import com.example.pagination_new.databinding.ActivityMainBinding
 import com.example.pagination_new.di.adapter.PagingAdapter
@@ -29,7 +28,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), PagingAdapter.OnItemClick,Progress {
+class MainActivity : AppCompatActivity(), PagingAdapter.OnItemClick, Progress {
 
 val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
