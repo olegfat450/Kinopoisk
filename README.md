@@ -1,6 +1,6 @@
 Поиск фильмов на Кинопоиске.
 Основные технологии: CleanArchitecrure,Pager3,RecycleView,MvvM,DaggerHilt. 
-
+Мой тел. 999-314-80-79 Олег
 
 
 
