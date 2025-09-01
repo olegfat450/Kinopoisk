@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -73,7 +74,8 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
             AlertDialog.Builder(this)
                 .setTitle("В избранном пусто")
                 .setPositiveButton("OK") { _,_ ->
-                    vm.getAllFilms()
+
+                   getFilms()
 
                 }
                 .create()
@@ -84,7 +86,8 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
        binding.searchText.hint = search
         adapter.addLoadStateListener {
-         //   binding.progressUp.visibility =  if( it.prepend is LoadState.Loading || adapter.itemCount == 0 ) View.VISIBLE else View.GONE
+
+            binding.progressUp.visibility =  if( it.prepend is LoadState.Loading ) View.VISIBLE else View.GONE
             binding.progressDown.visibility = if( it.append is LoadState.Loading) View.VISIBLE else View.GONE
         }
 
@@ -146,6 +149,16 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
             if (binding.withPosterCheckBox.isChecked) withPoster_flag = true else withPoster_flag = false
             getFilms() }
 
+        class MyBackPressedCallBack: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                getFilms()
+                onFavorite = false
+            }}
+
+        val onBackPressedCallback = MyBackPressedCallBack()
+        onBackPressedDispatcher.addCallback(onBackPressedCallback)
+
     }
 
     fun getGenres() {
@@ -158,6 +171,8 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
                     .create().show()
             }
         }}}
+
+
     private fun getFilms() {
 
         binding.withPosterCheckBox.isChecked = if (withPoster_flag) true else false
@@ -227,8 +242,9 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
     }
 
 
-    override fun onResume() {
-        super.onResume()
+
+    override fun onStart() {
+        super.onStart()
 
         if (onFavorite) {
 
@@ -238,4 +254,8 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
     }
 
-}}
+}
+
+     }
+
+
