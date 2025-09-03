@@ -1,9 +1,11 @@
 package com.example.pagination_new.di
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
@@ -42,9 +44,9 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
     private var genre = "Все жанры"
     private var search = SEARCH_FILMS
     private var onFavorite = false
- //   private var searchFilms = true
+    private var searchOn = SEARCH_FILMS
+    private var onMain = true
 
-     val scope = CoroutineScope(Dispatchers.IO)
 
           private lateinit var  binding: ActivityMainBinding
     var genre_list: List<Genre_list> = listOf()
@@ -65,7 +67,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
      binding.favoriteFilmsText.setOnClickListener { onFavorite = true
 
-
+           onMain = false
             vm.getFavoriteFilms(); launchLifecycle()
 
      }
@@ -74,7 +76,8 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
             AlertDialog.Builder(this)
                 .setTitle("В избранном пусто")
                 .setPositiveButton("OK") { _,_ ->
-
+                    onMain = true
+                  onFavorite = false
                    getFilms()
 
                 }
@@ -106,39 +109,38 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
+             //  Log.d("Ml","${start} --  ${before} --  ${count}")
+
+
                if ((binding.searchText.text.isBlank()) && (search == SEARCH_FILMS))
               { binding.searchText.hint = search; binding.withPosterCheckBox.isEnabled = true; } else { binding.withPosterCheckBox.isEnabled = false }
+
+
            }
 
-           override fun afterTextChanged(s: Editable?) {}
+           override fun afterTextChanged(s: Editable) {
+               Log.d("Ml","before: ${s.length}")
+//
+                 if (s.contains('\n')) {
+                     when  {
+                        (s.length == 1) -> { s.clear() }
+                         (s.length > 1) -> { searchFilmsAndActors(); s.delete(s.length -1 ,s.length) }
+                     }
+
+                 }
+
+               }
+
        } )
 
                 binding.top250Text.setOnClickListener {
                     onFavorite = false
-                    vm.getTop250Films(); launchLifecycle(); search = SEARCH_FILMS;
+                    vm.getTop250Films(); launchLifecycle(); search = SEARCH_FILMS
                     binding.searchText.text.clear()
                     binding.searchText.hint = search }
 
                binding.searchButton.setOnClickListener {
-                   onFavorite = false
-                   if(binding.searchText.text.isBlank()) { search = SEARCH_FILMS; search = SEARCH_FILMS; binding.searchText.hint = search; getFilms(); launchLifecycle(); return@setOnClickListener }
-
-
-
-                         when(search) {
-                             SEARCH_FILMS -> {
-
-                                 search = SEARCH_FILMS
-
-                                 vm.searchFilmsByTitle(binding.searchText.text.toString())
-                             }
-
-                             SEARCH_ACTORS -> {
-                                search = SEARCH_ACTORS
-                                 vm.searchPersons(binding.searchText.text.toString())
-                             }
-                         }
-                   launchLifecycle()
+                   searchFilmsAndActors()
                }
 
         binding.filter.setOnClickListener { showfilterMenu(it) }
@@ -152,13 +154,50 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
         class MyBackPressedCallBack: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
 
+               if (onMain) { AlertDialog.Builder(this@MainActivity)
+                   .setTitle("Выход")
+                   .setMessage("Действительно выйти?")
+                   .setPositiveButton("Да") { _,_ -> finishAffinity() }
+                   .setNegativeButton("Нет") { _,_ -> return@setNegativeButton }
+                   .create()
+                   .show()
+
+               } else {
+                   onMain = true
                 getFilms()
                 onFavorite = false
+                searchOn = SEARCH_FILMS
+                               }
             }}
 
         val onBackPressedCallback = MyBackPressedCallBack()
         onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
+    }
+
+    private fun searchFilmsAndActors() {
+        onFavorite = false
+        if (binding.searchText.text.isBlank()) {
+            search = SEARCH_FILMS; search = SEARCH_FILMS; binding.searchText.hint =
+                search; getFilms(); launchLifecycle(); return
+        }
+
+
+
+        when (search) {
+            SEARCH_FILMS -> {
+
+                searchOn = SEARCH_FILMS
+
+                vm.searchFilmsByTitle(binding.searchText.text.toString())
+            }
+
+            SEARCH_ACTORS -> {
+                searchOn = SEARCH_ACTORS
+                vm.searchPersons(binding.searchText.text.toString())
+            }
+        }
+        launchLifecycle()
     }
 
     fun getGenres() {
@@ -189,7 +228,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
     private fun launchLifecycle() {
         binding.listTv.smoothScrollToPosition(0)
-        lifecycleScope.launch { vm.data.collect { adapter.submitData(it) }; }
+        lifecycleScope.launch { vm.data.collect { adapter.submitData(it) } }
 
 
     }
@@ -200,7 +239,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
            menu.show()
             menu.setOnMenuItemClickListener {
               onFavorite = false
-                search = it.title.toString(); binding.searchText.hint = search;
+                search = it.title.toString(); binding.searchText.hint = search
                 if (search == SEARCH_FILMS && binding.searchText.text.isBlank()) { binding.withPosterCheckBox.isEnabled = true } else
 
                     binding.withPosterCheckBox.isEnabled = false
@@ -223,10 +262,10 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
     override fun onItemClick(id: Int) {
 
 
-        var intent: Intent? = null
+        val intent: Intent?
 
-        if (search == SEARCH_FILMS) {intent = Intent(this,FilmActivity::class.java)} else {intent = Intent(this,PersonActivity::class.java)}
-
+        if (searchOn == SEARCH_FILMS) {intent = Intent(this,FilmActivity::class.java)} else {intent = Intent(this,PersonActivity::class.java)}
+         onMain = false
         intent.putExtra("id",id)
         startActivity(intent)
     }
@@ -246,13 +285,15 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
     override fun onStart() {
         super.onStart()
 
-        if (onFavorite) {
 
+
+        if (onFavorite) {
+            onMain = false
              vm.getFavoriteFilms()
             launchLifecycle()
 
 
-    }
+    } else { onMain = true }
 
 }
 
