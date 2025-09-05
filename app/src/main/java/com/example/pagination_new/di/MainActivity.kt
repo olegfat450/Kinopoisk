@@ -2,13 +2,16 @@ package com.example.pagination_new.di
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
@@ -53,6 +56,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
    @Inject lateinit var  getGenresUseCase: GetGenresUseCase
    @Inject lateinit var db: MainDb
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -61,7 +65,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
         binding = ActivityMainBinding.inflate(layoutInflater)
     val resources = resources
     val resourcesId = resources.getIdentifier("status_bar_height","dimen","android")
-    val h = resources.getDimensionPixelSize(resourcesId)
+        val h = resources.getDimensionPixelSize(resourcesId)
     binding.main.setPadding(0,h,0,0)
         setContentView(binding.root)
 
@@ -109,7 +113,6 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
 
            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-             //  Log.d("Ml","${start} --  ${before} --  ${count}")
 
 
                if ((binding.searchText.text.isBlank()) && (search == SEARCH_FILMS))
@@ -178,7 +181,7 @@ val adapter by lazy (LazyThreadSafetyMode.NONE) { PagingAdapter() }
     private fun searchFilmsAndActors() {
         onFavorite = false
         if (binding.searchText.text.isBlank()) {
-            search = SEARCH_FILMS; search = SEARCH_FILMS; binding.searchText.hint =
+            searchOn = SEARCH_FILMS; search = SEARCH_FILMS; binding.searchText.hint =
                 search; getFilms(); launchLifecycle(); return
         }
 
